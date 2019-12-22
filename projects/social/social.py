@@ -1,4 +1,21 @@
+import random
 
+class Queue():
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, value):
+        self.queue.append(value)
+
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+
+    def size(self):
+        return len(self.queue)
+    
 
 class User:
     def __init__(self, name):
@@ -47,9 +64,21 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
-
+        for i in range(numUsers):
+            self.addUser(f"User {i+1}")
         # Create friendships
-
+        # This should be every possible combo of friendships for each of the users
+        
+        possible_friendships = []
+        for user_id in self.users:
+            for friend_id in range(user_id+1, self.lastID + 1):
+                possible_friendships.append((user_id, friend_id))
+            random.shuffle(possible_friendships)
+                
+        for i in range(numUsers * avgFriendships // 2):
+            friendship = possible_friendships[i]
+            self.addFriendship(friendship[0], friendship[1])
+            
     def getAllSocialPaths(self, userID):
         """
         Takes a user's userID as an argument
@@ -68,5 +97,5 @@ if __name__ == '__main__':
     sg = SocialGraph()
     sg.populateGraph(10, 2)
     print(sg.friendships)
-    connections = sg.getAllSocialPaths(1)
-    print(connections)
+    # connections = sg.getAllSocialPaths(1)
+    # print(connections)
