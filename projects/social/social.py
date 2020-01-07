@@ -107,7 +107,7 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populateGraph(10, 2)
+    sg.populateGraph(100, 40)
     print(sg.friendships)
     connections = sg.getAllSocialPaths(1)
     print(connections)
